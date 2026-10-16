@@ -31,47 +31,52 @@ Dataset
 data/service_tickets.csv holds about 6,000 tickets from January to September 2026 (6,040 rows before duplicates were removed).
 
 Column	Description
-Ticket ID	Unique ticket identifier
-Created Timestamp / Resolved Timestamp	When the ticket was opened and closed (blank if still open)
-Region	Northeast, Southeast, Midwest, West, Texas
-Issue Category	Internet Outage, Slow Speeds, Billing, Equipment, New Install, TV/Video, Mobile
-Channel	Phone, Chat, Email, Field Visit
-Priority	High, Medium, Low (sets the SLA target)
-Agent ID / Agent Tenure	Agent and experience group (0-6 months, 6-24 months, 2+ years)
-SLA Target Hours / Resolution Hours / SLA Met	Target, actual time, and whether the target was met
-First Contact Resolution	Resolved on first contact (Yes/No)
-Repeat Contact 7 Days	Customer contacted again within 7 days about the same issue
-Escalated	Escalated to a senior team
-CSAT Score	Survey score 1-5 (blank if no survey returned)
-Status	Open or Closed as of Sep 30, 2026
+Dataset Columns
+- **Ticket ID:** Unique ticket identifier
+- **Timestamps:** Ticket creation and resolution times
+- **Region:** Northeast, Southeast, Midwest, West, Texas
+- **Issue Category:** Type of customer issue
+- **Channel:** Phone, chat, email, or field visit
+- **Priority:** High, Medium, Low
+- **Agent ID / Tenure:** Agent identifier and experience group
+- **SLA Fields:** Target hours, resolution hours, and SLA status
+- **First Contact Resolution:** Whether resolved on first contact
+- **Repeat Contact:** Whether the customer contacted again within 7 days
+- **Escalated:** Whether escalated to a senior team
+- **CSAT Score:** Customer satisfaction rating (1–5)
+- **Status:** Open or closed as of September 30, 2026
+
 Process
-Audit the raw data using Power Query's column profiling.
-Clean in Power Query (every step is recorded in Applied Steps, so it's repeatable).
-Add helper columns (month, year, SLA Flag, FCR Flag) to make rates easy to average.
-Build pivot tables and KPI formulas in Excel.
-Chart and assemble the dashboard, then write findings and a recommendation.
-Document KPI definitions and data quality decisions in the workbook.
-Data quality issues found and how I handled them
-Issue	Rows	What I did	Why
-Duplicate Ticket IDs	40	Removed, keeping one row per Ticket ID	Duplicates would inflate ticket counts and skew every rate
-Inconsistent Region labels (e.g. "NE", "TX", stray spaces and capitalization)	~60	Standardized to the five region names	Variants split one region into several groups in a pivot
-Resolution Hours of -1	~15	Replaced with null; SLA result left blank for those rows	A ticket can't take -1 hours
-Open tickets with no resolution time	~20	Kept; skipped by time and SLA averages	They're real tickets that aren't resolved yet
-Blank CSAT scores	~2,050 (about a third)	Left blank	The customer didn't return the survey; filling a score would invent data. Avg CSAT only reflects customers who answered
-Resolved time earlier than created time	25	Identified and left in	Real tickets; SLA and resolution time use the Resolution Hours column, so those KPIs are unaffected. In a real setting I'd send these rows to the data owner to correct
+1. Audited data using Power Query column profiling.
+2. Cleaned and standardized data using recorded Applied Steps.
+3. Created month, year, SLA, and FCR helper columns.
+4. Built pivot tables, KPI formulas, and charts in Excel.
+5. Created a one-page dashboard with findings and recommendations.
+6. Documented KPI definitions and data quality decisions.
+
+Data Quality
+| Issue | Action |
+|---|---|
+| 40 duplicate ticket IDs | Removed duplicates |
+| ~60 inconsistent region labels | Standardized region names |
+| ~15 invalid resolution times (-1 hours) | Replaced with null; excluded from relevant calculations |
+| ~20 open tickets without resolution times | Retained; excluded from applicable averages |
+| ~2,050 missing CSAT scores | Left blank to avoid inventing data |
+| 25 contradictory timestamps | Documented and retained; used existing resolution hours for calculations |
+
 Limitations
-The data is synthetic, so the patterns illustrate analysis methods and are not real-world findings.
-The dashboard shows patterns, not causes. For example, tenure measures time in the role, not prior experience elsewhere.
-The 25 rows with contradictory timestamps remain in the data. Any calculation built by subtracting the two timestamps would be wrong for those rows.
+- Synthetic data; findings do not represent a real company.
+- Results show associations, not proven causes.
+- Agent tenure does not account for prior experience.
+- Contradictory timestamps remain and should be corrected before any timestamp-based calculations.
 Tools
 
 Excel (pivot tables, pivot charts, AVERAGEIFS and COUNTA formulas), Power Query.
 
 Files
-├── README.md
-├── images/
-│   └── dashboard.png
-└── service_ops_dashboard.xlsx
+readme, Customer Service Operations Dashboard picture, Customer Service Operations Dashboard.xlsx
+
+
 Next steps
 Rebuild the same analysis in SQL (joins, aggregations and window functions).
 Split the 7-day Southeast spike by hour and channel.
