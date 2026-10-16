@@ -9,11 +9,20 @@ The question
 Where is a customer service operation falling short on its service level agreements (SLAs), and what does the data suggest about why?
 
 Key findings
-Southeast outage spike. The Southeast had 252 internet outage tickets in March, mostly between March 9 and 15, about 10x the roughly 25 each in the other regions. Only 24.2% of those tickets met their SLA.
-High priority tickets almost never meet their target. Only 9.4% of High priority tickets are resolved within the 4-hour target, compared with 70.4% for Medium (24-hour target) and 92.1% for Low (72-hour target).
-Experience matters for first contact resolution. The share of tickets resolved on first contact rises from 57.3% for agents with 0-6 months of experience, to 68.9% for 6-24 months, to 79.6% for 2+ years.
 
-Recommendation: Prioritize training and mentoring for newer agents, and review staffing and whether the 4-hour High priority target is realistic. These are patterns in the data, not proof of cause.
+Southeast Outage Spike: The Southeast had 252 internet outage tickets in March, mostly between March 9–15, compared with roughly 25 in each other region.
+
+High-Priority SLA Gap: Only 9.4% of high-priority tickets met the 4-hour target, compared with 70.4% of medium-priority and 92.1% of low-priority tickets.
+
+Agent Experience: First-contact resolution increased with tenure, from 57.3% for agents with 0–6 months of experience to 68.9% for 6–24 months and 79.6% for 2+ years.
+
+Recommendations
+
+Improve Agent Training: Prioritize mentoring for newer agents to improve first-contact resolution and reduce repeat customer contacts.
+
+Review High-Priority SLAs: Investigate why only 9.4% of high-priority tickets meet the 4-hour target, including potential staffing and workload issues.
+
+Evaluate Service Targets: Assess whether the current 4-hour SLA is realistic and whether staffing or service-level targets need adjustment.
 
 KPIs
 KPI	Value	How it's calculated
